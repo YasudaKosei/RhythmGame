@@ -38,6 +38,7 @@ public class E_NotesManager : MonoBehaviour
     private int offset;
 
     [SerializeField] GameObject noteObj;
+    [SerializeField] GameObject LongnoteObj;
 
     // ノーツが移動する間隔（秒）
     private float moveSpan = 0.01f;
@@ -72,6 +73,7 @@ public class E_NotesManager : MonoBehaviour
 
         // BPMとLPBを設定
         BPM = jsonData.BPM;
+        Debug.Log("BPMは" + BPM);
         LPB = jsonData.notes[0].LPB;
 
         offset = jsonData.offset;
@@ -83,7 +85,7 @@ public class E_NotesManager : MonoBehaviour
             NoteNum[i] = jsonData.notes[i].num;
             NoteBlock[i] = jsonData.notes[i].block;
             NoteType[i] = jsonData.notes[i].type;
-            //Debug.Log($"{i} .. N: {NoteNum[i]} B: {NoteBlock[i]}");
+            Debug.Log($"{i} .. N: {NoteNum[i]} B: {NoteBlock[i]} T; {NoteType[i]}");
         }
 
         gameManager.maxScore = noteVal * 100;
@@ -95,7 +97,7 @@ public class E_NotesManager : MonoBehaviour
         float delay = offset / 100000f; // offsetがミリ秒単位の場合
         Debug.Log("遅延は" + delay);
         InvokeRepeating("NotesIns", delay, moveSpan);
-        Invoke("PlayAudio", 1.95f - delay); // オーディオソースを2秒後に再生
+        Invoke("PlayAudio", 2f - delay); // オーディオソースを2秒後に再生
     }
 
     void PlayAudio()
@@ -137,25 +139,50 @@ public class E_NotesManager : MonoBehaviour
             isBeat = (NoteNum[beatCount] == beatNum);
         }
 
+        Debug.Log("現在のNUMは" + beatNum + " " + "isBeatは" + isBeat);
+
         // ノーツを生成するタイミングなら
         if (isBeat == true)
         {
-            if (NoteBlock[beatCount] == 0)
+            if(NoteType[beatCount] == 1)
             {
-                Instantiate(noteObj, new Vector3(-90, 1000f, 0), Quaternion.identity);
+                if (NoteBlock[beatCount] == 0)
+                {
+                    Instantiate(noteObj, new Vector3(-90, 1000f, 0), Quaternion.identity);
+                }
+                if (NoteBlock[beatCount] == 1)
+                {
+                    Instantiate(noteObj, new Vector3(-30, 1000f, 0), Quaternion.identity);
+                }
+                if (NoteBlock[beatCount] == 2)
+                {
+                    Instantiate(noteObj, new Vector3(30, 1000f, 0), Quaternion.identity);
+                }
+                if (NoteBlock[beatCount] == 3)
+                {
+                    Instantiate(noteObj, new Vector3(90, 1000f, 0), Quaternion.identity);
+                }
             }
-            if (NoteBlock[beatCount] == 1)
+            else if (NoteType[beatCount] == 2)
             {
-                Instantiate(noteObj, new Vector3(-30, 1000f, 0), Quaternion.identity);
+                if (NoteBlock[beatCount] == 0)
+                {
+                    Instantiate(LongnoteObj, new Vector3(-90, 1000f, 0), Quaternion.identity);
+                }
+                if (NoteBlock[beatCount] == 1)
+                {
+                    Instantiate(LongnoteObj, new Vector3(-30, 1000f, 0), Quaternion.identity);
+                }
+                if (NoteBlock[beatCount] == 2)
+                {
+                    Instantiate(LongnoteObj, new Vector3(30, 1000f, 0), Quaternion.identity);
+                }
+                if (NoteBlock[beatCount] == 3)
+                {
+                    Instantiate(LongnoteObj, new Vector3(90, 1000f, 0), Quaternion.identity);
+                }
             }
-            if (NoteBlock[beatCount] == 2)
-            {
-                Instantiate(noteObj, new Vector3(30, 1000f, 0), Quaternion.identity);
-            }
-            if (NoteBlock[beatCount] == 3)
-            {
-                Instantiate(noteObj, new Vector3(90, 1000f, 0), Quaternion.identity);
-            }
+
 
             // json配列用のカウントを更新
             beatCount++;

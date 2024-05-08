@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] E_NotesManager e_NotesManager;
 
+    [SerializeField] BeatRotation beatRotation;
+
     [SerializeField] Slider slider;
     [SerializeField] Image sliderImage;
 
@@ -98,6 +100,7 @@ public class GameManager : MonoBehaviour
 
             if (slider.value > 0.7f) 
             {
+                beatRotation.TurnOnRotation();
                 sliderImage.color = Color.yellow;
                 if (OnClear) return;
                 effect = Instantiate(particle, new Vector3(particlePos.position.x, particlePos.position.y, particlePos.position.z), Quaternion.identity);
@@ -105,6 +108,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                beatRotation.TurnOffRotation();
                 sliderImage.color = Color.red;
                 Destroy(effect);
                 OnClear = false;

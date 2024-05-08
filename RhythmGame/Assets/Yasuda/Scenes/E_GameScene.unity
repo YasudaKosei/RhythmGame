@@ -1678,6 +1678,7 @@ GameObject:
   m_Component:
   - component: {fileID: 649170201}
   - component: {fileID: 649170200}
+  - component: {fileID: 649170202}
   m_Layer: 0
   m_Name: IMG_8981
   m_TagString: Untagged
@@ -1752,6 +1753,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -60, y: 0, z: 0}
+--- !u!114 &649170202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649170199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81f36a50d7616ff48aa7b8433212d07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beatsPerMinute: 158
+  rotationAmount: 2
 --- !u!1 &711819536
 GameObject:
   m_ObjectHideFlags: 0
@@ -3477,6 +3492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteVal: 0
   noteObj: {fileID: 6012809373255025442, guid: 04c0b1949422a7d40af08b8ddbffb76d, type: 3}
+  LongnoteObj: {fileID: 6012809373255025442, guid: 872173c9229339d46a765d0eecf2c117, type: 3}
   gameAudio: {fileID: 1721618917}
   gameManager: {fileID: 2125643746}
 --- !u!4 &1721618916
@@ -3504,7 +3520,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1286dec769b9ca441b9ddcc9bf449f54, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9436923f5b7e8344980c464983291963, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -4110,6 +4126,7 @@ MonoBehaviour:
   resultPanal: {fileID: 994770064}
   textScaler: {fileID: 1326421710}
   e_NotesManager: {fileID: 1721618915}
+  beatRotation: {fileID: 649170202}
   slider: {fileID: 1654832495}
   sliderImage: {fileID: 1754976463}
   ExcellentScore: 200
@@ -4118,7 +4135,7 @@ MonoBehaviour:
   particle: {fileID: 764177008358563917, guid: fc380b22c96ded44f99d547e6b05f4c7, type: 3}
   particlePos: {fileID: 780186907}
   maxScore: 0
-  songName: maou_14_shining_star_online-audio-converter.com
+  songName: cat_life_hensyuuzumi
 --- !u!4 &2125643747
 Transform:
   m_ObjectHideFlags: 0
