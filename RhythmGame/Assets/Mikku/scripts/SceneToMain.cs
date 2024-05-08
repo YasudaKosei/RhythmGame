@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneChanger : MonoBehaviour
 {
-    public void change_button()
+    // オブジェクトがアクティブになった時に呼び出される
+    void OnEnable()
     {
-        LoadingScreenManager.LoadScene("MainScene");
+        SceneManager.LoadScene("MainScene");
     }
 }
