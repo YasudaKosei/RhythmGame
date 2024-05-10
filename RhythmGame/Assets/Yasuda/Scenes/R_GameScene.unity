@@ -273,13 +273,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   noteNum: 0
-  songName: maou_14_shining_star_online-audio-converter.com
+  songName: summer
   LaneNum: 
   NoteType: 
   NotesTime: []
   NotesObj: []
   LongNotesObj: []
-  NotesSpeed: 100
+  NotesSpeed: 5
   noteObj: {fileID: 1162333179043108149, guid: 12a548cac4b3eb648859c761bcba029a, type: 3}
   longnoteObj: {fileID: 1162333179043108149, guid: 16e54d55ccf4c4e48840b903a7e2e13a, type: 3}
 --- !u!4 &321380851
