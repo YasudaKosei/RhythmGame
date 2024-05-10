@@ -13,7 +13,7 @@ public class InfiniteDiagonalScroller : MonoBehaviour
         pooledObjects = new List<GameObject>();
         for (int i = 0; i < poolAmount; i++)
         {
-            GameObject obj = Instantiate(objectToPool);
+            GameObject obj = Instantiate(objectToPool, content.transform, false);
             obj.SetActive(false);
             pooledObjects.Add(obj);
         }
@@ -31,29 +31,67 @@ public class InfiniteDiagonalScroller : MonoBehaviour
         }
 
         // 必要に応じて新しいオブジェクトをプールに追加
-        GameObject newObj = Instantiate(objectToPool);
+        GameObject newObj = Instantiate(objectToPool, content.transform, false);
         newObj.SetActive(false);
         pooledObjects.Add(newObj);
         return newObj;
+    }
+
+    bool IsInView(GameObject obj)
+    {
+        RectTransform scrollViewRect = content.parent.parent as RectTransform;  // content の祖父が ScrollView を想定
+        Vector2 screenPoint = obj.transform.position;  // オブジェクトのスクリーン座標
+        Vector2 localPoint = scrollViewRect.InverseTransformPoint(screenPoint);
+        bool isInView = scrollViewRect.rect.Contains(localPoint);
+
+        // 正しい位置でデバッグ情報を出力
+        Debug.Log($"ScrollView Rect: {scrollViewRect.rect}, Object Position: {localPoint}, IsInView: {isInView}");
+
+        return isInView;
+    }
+
+    bool IsOutOfView(GameObject obj)
+    {
+        RectTransform scrollViewRect = content.parent.parent as RectTransform;
+        Vector2 screenPoint = obj.transform.position;
+
+        // ScrollViewのRectTransform内でオブジェクトの位置をチェック
+        Vector2 localPoint = scrollViewRect.InverseTransformPoint(screenPoint);
+        bool outOfHorizontalBounds = localPoint.x < scrollViewRect.rect.xMin || localPoint.x > scrollViewRect.rect.xMax;
+        bool outOfVerticalBounds = localPoint.y < scrollViewRect.rect.yMin || localPoint.y > scrollViewRect.rect.yMax;
+
+        return outOfHorizontalBounds || outOfVerticalBounds;
     }
 
     public void Update()
     {
         foreach (GameObject obj in pooledObjects)
         {
-            if (obj.activeInHierarchy && IsOutOfView(obj))
+            bool isInView = IsInView(obj);
+            bool isOutOfView = IsOutOfView(obj);
+
+            Debug.Log($"Object {obj.name} is in view: {isInView}, is out of view: {isOutOfView}");
+
+            if (obj.activeInHierarchy && isOutOfView)
+            {
+                // アイテムがビュー範囲外に移動したら非アクティブ化
+                obj.SetActive(false);
+                Debug.Log($"Deactivating object {obj.name} because it's out of view.");
+            }
+
+            if (!obj.activeInHierarchy && isInView)
+            {
+                // アイテムがビュー範囲内に入ったらアクティブ化
+                obj.SetActive(true);
+                Debug.Log($"Activating object {obj.name} because it's in view.");
+            }
+
+            if (obj.activeInHierarchy && isOutOfView)
             {
                 // アイテムをリサイクルして反対側に移動
                 RecycleObject(obj);
             }
         }
-    }
-
-    bool IsOutOfView(GameObject obj)
-    {
-        Vector2 viewPos = Camera.main.WorldToViewportPoint(obj.transform.position);
-        // ビューポートの座標は0から1の範囲で、それを超えた場合はビュー範囲外と見なす
-        return viewPos.x < 0 || viewPos.x > 1 || viewPos.y < 0 || viewPos.y > 1;
     }
 
     void RecycleObject(GameObject obj)

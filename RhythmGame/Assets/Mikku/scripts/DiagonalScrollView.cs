@@ -4,17 +4,21 @@ using UnityEngine.EventSystems;
 public class DiagonalScrollView : MonoBehaviour, IDragHandler
 {
     public RectTransform content;
-    public float scrollSpeed = 0.1f;  // スクロールの速度を調整するためのパラメータ
+    public float scrollSpeed;  // スクロールの速度を調整するためのパラメータ
+    private Vector2 diagonalDirection;  // 斜め方向の正規化されたベクトルを保持する変数
+
+    void Start()
+    {
+        // 斜め方向のベクトルを定義して正規化し、メンバー変数に格納
+        diagonalDirection = new Vector2(1, 1).normalized;
+    }
 
     public void OnDrag(PointerEventData eventData)
     {
-        // 斜め方向（例: 右上）のベクトルを定義
-        Vector2 diagonalDirection = new Vector2(1, 1).normalized;
-
-        // ドラッグイベントからの移動量を斜め方向の成分のみに制限
         float movementMagnitude = Vector2.Dot(eventData.delta, diagonalDirection) * scrollSpeed;
-
-        // 斜め方向にのみ移動を適用
-        content.anchoredPosition += diagonalDirection * movementMagnitude;
+        Vector2 newPosition = content.anchoredPosition + diagonalDirection * movementMagnitude;
+        content.anchoredPosition = newPosition;
     }
+
 }
+
