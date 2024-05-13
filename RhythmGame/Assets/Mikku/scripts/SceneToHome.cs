@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneToChooseMusic : MonoBehaviour
+public class SceneToHome : MonoBehaviour
 {
     public void change_button()
     {
-        SceneManager.LoadScene("ChooseMusic");
+        SceneManager.LoadScene("HomeScene");
     }
 }

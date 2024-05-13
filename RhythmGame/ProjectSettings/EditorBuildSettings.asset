@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mikku/Scenes/InitializationScene.unity
     guid: cb0ebe24b51b918408b1a135ede5bca8
   - enabled: 1
@@ -20,7 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Mikku/Scenes/ChooseMusic.unity
     guid: 6ebfb8263f69309488241ee25ab6d903
-  - enabled: 1
+  - enabled: 0
     path: Assets/Mikku/Scenes/LoadingScene.unity
     guid: efd0337b0ad50a04199c9aabc3a2c16a
+  - enabled: 1
+    path: Assets/Mikku/Scenes/StoryScene.unity
+    guid: df196d3d3d653f5498bb3e1f2b8a3a2e
   m_configObjects: {}

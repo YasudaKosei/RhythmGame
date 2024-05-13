@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneToChooseMusic : MonoBehaviour
+public class SceneChangerToStory : MonoBehaviour
 {
     public void change_button()
     {
-        SceneManager.LoadScene("ChooseMusic");
+        SceneManager.LoadScene("StoryScene");
     }
+
 }
