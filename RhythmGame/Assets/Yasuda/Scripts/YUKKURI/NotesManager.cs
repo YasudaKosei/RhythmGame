@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static E_NotesManager;
 
 public class NotesManager : MonoBehaviour
 {
@@ -17,6 +18,15 @@ public class NotesManager : MonoBehaviour
     }
     [Serializable]
     public class Note
+    {
+        public int type;
+        public int num; 
+        public int block;
+        public int LPB;
+        public EndNote[] notes;
+    }
+
+    public class EndNote
     {
         public int type;
         public int num;
@@ -37,8 +47,6 @@ public class NotesManager : MonoBehaviour
     [SerializeField] GameObject noteObj;
     [SerializeField] GameObject longnoteObj;
 
-
-
     void OnEnable()
     {
         noteNum = 0;
@@ -47,37 +55,45 @@ public class NotesManager : MonoBehaviour
 
     private void Load(string SongName)
     {
-        string inputString = Resources.Load<TextAsset>(SongName).ToString();
-        Data inputJson = JsonUtility.FromJson<Data>(inputString);
+        // JSONファイルから文字列を読み込む
+        TextAsset textAsset = Resources.Load<TextAsset>(SongName);
+        string jsonText = textAsset.text;
+
+        // 読み込んだJSON文字列をC#のオブジェクトに変換
+        JsonFormat inputJson = JsonUtility.FromJson<JsonFormat>(jsonText);
 
         noteNum = inputJson.notes.Length;
-        //GManager.instance.maxScore = noteNum * 5;//new!!
 
-        for (int i = 0; i < inputJson.notes.Length; i++)
+        for (int i = 0; i < noteNum; i++)
         {
             float kankaku = 60 / (inputJson.BPM * (float)inputJson.notes[i].LPB);
             float beatSec = kankaku * (float)inputJson.notes[i].LPB;
-            float time = (beatSec * inputJson.notes[i].num / (float)inputJson.notes[i].LPB) + inputJson.offset * 0.01f;
-            NotesTime.Add(time);
+            float startTime = (beatSec * inputJson.notes[i].num / (float)inputJson.notes[i].LPB) + inputJson.offset * 0.0001f;
+            NotesTime.Add(startTime);
             LaneNum.Add(inputJson.notes[i].block);
             NoteType.Add(inputJson.notes[i].type);
 
-            float z = NotesTime[i] * NotesSpeed;
-            NotesObj.Add(Instantiate(noteObj, new Vector3(inputJson.notes[i].block - 1.5f, 0.55f, z), Quaternion.identity));
-        }
+            if (inputJson.notes[i].block > 3) continue;
 
-        //自作ロングノーツリスト(ここにロングノーツを生成するコードを書きたい...)
-        for (int j = 0; j < inputJson.notes.Length; j++)
-        {
-            float kankaku = 60 / (inputJson.BPM * (float)inputJson.notes[j].LPB);
-            float beatSec = kankaku * (float)inputJson.notes[j].LPB;
-            float time = (beatSec * inputJson.notes[j].num / (float)inputJson.notes[j].LPB) + inputJson.offset * 0.01f;
-            NotesTime.Add(time);
-            LaneNum.Add(inputJson.notes[j].block);
-            NoteType.Add(inputJson.notes[j].type);
+            float startZ = NotesTime[i] * NotesSpeed;
 
-            float z = NotesTime[j] * NotesSpeed;
-            LongNotesObj.Add(Instantiate(longnoteObj, new Vector3(inputJson.notes[j].block - 1.5f, 0.55f, z), Quaternion.identity));
+            if (inputJson.notes[i].type == 1)
+            {
+                GameObject note = Instantiate(noteObj, new Vector3(inputJson.notes[i].block - 1.5f, 0.55f, startZ), Quaternion.identity);
+                NotesObj.Add(note);
+            }
+            else if (inputJson.notes[i].type == 2)
+            {
+                float endNoteTime = (beatSec * inputJson.notes[i].notes[0].num / (float)inputJson.notes[i].notes[0].LPB) + inputJson.offset * 0.0001f;
+                float endZ = endNoteTime * NotesSpeed;
+                float longNoteLength = endZ - startZ;
+                float centerZ = (startZ + endZ) / 2;
+
+                GameObject longNote = Instantiate(longnoteObj, new Vector3(inputJson.notes[i].block - 1.5f, 0.55f, centerZ), Quaternion.identity);
+                LongNotesObj.Add(longNote);
+                longNote.transform.localScale = new Vector3(longNote.transform.localScale.x, longNote.transform.localScale.y, longNoteLength); // Adjust the z scale accordingly
+            }
         }
     }
+
 }

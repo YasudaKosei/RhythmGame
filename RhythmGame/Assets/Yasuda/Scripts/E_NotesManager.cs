@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static E_NotesManager;
+using static Unity.Collections.AllocatorManager;
 
 public class E_NotesManager : MonoBehaviour
 {
@@ -17,6 +20,16 @@ public class E_NotesManager : MonoBehaviour
     // ノーツ情報を表すクラス
     [Serializable]
     public class Notes
+    {
+        public int LPB;
+        public int num;
+        public int block;
+        public int type;
+        public L_Notes[] notes;
+    }
+
+    [Serializable]
+    public class L_Notes
     {
         public int LPB;
         public int num;
@@ -79,14 +92,20 @@ public class E_NotesManager : MonoBehaviour
         offset = jsonData.offset;
         noteVal = jsonData.notes.Length;
 
+        int a = 0;
+
         // 各ノーツのデータを配列に格納
-        for (int i = 0; i < jsonData.notes.Length; i++)
+        for (int i = 0; i < jsonData.notes.Length + a; i++)
         {
             NoteNum[i] = jsonData.notes[i].num;
             NoteBlock[i] = jsonData.notes[i].block;
             NoteType[i] = jsonData.notes[i].type;
             Debug.Log($"{i} .. N: {NoteNum[i]} B: {NoteBlock[i]} T; {NoteType[i]}");
+
+            Debug.Log(jsonData.notes[i].notes[i].num);
         }
+
+      
 
         gameManager.maxScore = noteVal * 100;
 

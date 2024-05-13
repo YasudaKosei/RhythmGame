@@ -53,7 +53,7 @@ public class MateLight : MonoBehaviour
 
     void colorChange()
     {
-        alfa = 0.3f;
+        alfa = 0.7f;
         rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, alfa);
     }
 }
