@@ -18,6 +18,7 @@ public class JsonScript : MonoBehaviour
     //保存先
     string datapath;
     string datapath2;
+    string[] songNameArray = { "シャイニングスター", "12345", "Burning Heart", "Morning", "かえるのピアノ", "情動カタルシス", "春のキッチン", "なんでしょう？", "Cat life", "すべてを創造する者「Dominus Deus」", "Escort", "夏はSummer！！", "ネオロック33", "カナリアステップ", "野良猫は宇宙を目指した", "少年たちの夏休み的なBGM", "昼下がり気分", "Stream", "おどれグロッケンシュピール", "" };
 
     void Awake()
     {
@@ -77,19 +78,23 @@ public class JsonScript : MonoBehaviour
     //初期値をセーブし, JSONファイルを生成する
     public void Initialize(Player player)
     {
-        player.status = new Status[2];
-        player.status[0] = new Status();
-        player.status[0].name = "aaa";
-        player.status[0].hp = 12;
-        player.status[0].attack = 6;
-        player.status[0].defense = 5;
-
-        player.status[1] = new Status();
-        player.status[1].name = "bbb";
-        player.status[1].hp = 9999;
-        player.status[1].attack = 9999;
-        player.status[1].defense = 9999;
-
+        player.status = new Status[20];
+        for(int i = 0;i < 20; i++)
+        {
+            player.status[i] = new Status();
+            player.status[i].songName = songNameArray[i];
+            if(i < 10)
+            {
+                player.status[i].releaseFlag = true;
+            }
+            else
+            {
+                player.status[i].releaseFlag = false;
+            }
+            player.status[i].easyScore = 0;
+            player.status[i].normalScore = 0;
+            player.status[i].hardScore = 0;
+        }
         savePlayerData(player);
     }
 
@@ -122,8 +127,10 @@ public class Player
 [System.Serializable]
 public class Status
 {
-    public string name;
-    public int hp;
-    public int attack;
-    public int defense;
+    //曲の名前、解放フラグ、スコアE,N,H、
+    public string songName;
+    public bool releaseFlag;
+    public int easyScore;
+    public int normalScore;
+    public int hardScore;
 }
