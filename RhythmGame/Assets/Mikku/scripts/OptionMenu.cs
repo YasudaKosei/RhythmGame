@@ -1,42 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Audio;
 
 public class OptionsMenu : MonoBehaviour
 {
-    public Slider volumeSlider;
-    public Dropdown resolutionDropdown;
-    private Resolution[] resolutions;
+    public Slider masterSlider;
+    public Slider bgmSlider;
+    public Slider seSlider;
+    public Slider brightnessSlider;
 
     void Start()
     {
-        // 音量の初期値を設定
-        volumeSlider.value = AudioListener.volume;
-
-        // 解像度の設定
-        resolutionDropdown.ClearOptions();
-        resolutions = Screen.resolutions;
-        foreach (var res in resolutions)
+        // AudioManagerのインスタンスが存在することを確認
+        if (AudioManager.Instance != null)
         {
-            resolutionDropdown.options.Add(new Dropdown.OptionData(res.ToString()));
+            // スライダーの初期値をPlayerPrefsから取得
+            masterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 0.75f);
+            bgmSlider.value = PlayerPrefs.GetFloat("BGMVolume", 0.75f);
+            seSlider.value = PlayerPrefs.GetFloat("SEVolume", 0.75f);
+
+            // スライダーのリスナーを設定
+            masterSlider.onValueChanged.AddListener(AudioManager.Instance.SetMasterVolume);
+            bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
+            seSlider.onValueChanged.AddListener(AudioManager.Instance.SetSEVolume);
         }
-        resolutionDropdown.RefreshShownValue();
 
-        // イベントリスナーの設定
-        volumeSlider.onValueChanged.AddListener(SetVolume);
-        resolutionDropdown.onValueChanged.AddListener(SetResolution);
-    }
+        // BrightnessManagerのインスタンスが存在することを確認
+        if (BrightnessManager.Instance != null)
+        {
+            // スライダーの初期値をPlayerPrefsから取得
+            brightnessSlider.value = PlayerPrefs.GetFloat("Brightness", 0.75f);
 
-    public void SetVolume(float volume)
-    {
-        AudioListener.volume = volume;
-    }
-
-    public void SetResolution(int resolutionIndex)
-    {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+            // スライダーのリスナーを設定
+            brightnessSlider.onValueChanged.AddListener(BrightnessManager.Instance.SetBrightness);
+        }
     }
 }
