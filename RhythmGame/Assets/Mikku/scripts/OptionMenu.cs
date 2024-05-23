@@ -6,7 +6,6 @@ public class OptionsMenu : MonoBehaviour
     public Slider masterSlider;
     public Slider bgmSlider;
     public Slider seSlider;
-    public Slider brightnessSlider;
 
     void Start()
     {
@@ -22,16 +21,6 @@ public class OptionsMenu : MonoBehaviour
             masterSlider.onValueChanged.AddListener(AudioManager.Instance.SetMasterVolume);
             bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
             seSlider.onValueChanged.AddListener(AudioManager.Instance.SetSEVolume);
-        }
-
-        // BrightnessManagerのインスタンスが存在することを確認
-        if (BrightnessManager.Instance != null)
-        {
-            // スライダーの初期値をPlayerPrefsから取得
-            brightnessSlider.value = PlayerPrefs.GetFloat("Brightness", 0.75f);
-
-            // スライダーのリスナーを設定
-            brightnessSlider.onValueChanged.AddListener(BrightnessManager.Instance.SetBrightness);
         }
     }
 }
