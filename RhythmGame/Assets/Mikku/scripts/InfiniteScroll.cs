@@ -62,7 +62,7 @@ public class InfiniteScroll : UIBehaviour
             return _itemScale;
         }
     }
-      
+
     protected override void Start()
     {
         var controllers = GetComponents<MonoBehaviour>()
