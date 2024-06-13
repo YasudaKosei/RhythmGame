@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static E_NotesManager;
 
 public class NotesManager : MonoBehaviour
 {
-
     [Serializable]
     public class Data
     {
@@ -14,24 +12,35 @@ public class NotesManager : MonoBehaviour
         public int BPM;
         public int offset;
         public Note[] notes;
-
     }
+
     [Serializable]
     public class Note
     {
         public int type;
-        public int num; 
+        public int num;
         public int block;
         public int LPB;
         public EndNote[] notes;
     }
 
+    [Serializable]
     public class EndNote
     {
         public int type;
         public int num;
         public int block;
         public int LPB;
+    }
+
+    [Serializable]
+    public class JsonFormat
+    {
+        public string name;
+        public int maxBlock;
+        public int BPM;
+        public int offset;
+        public Note[] notes;
     }
 
     public int noteNum;
@@ -47,6 +56,8 @@ public class NotesManager : MonoBehaviour
     [SerializeField] GameObject noteObj;
     [SerializeField] GameObject longnoteObj;
 
+    public AudioSource audioSource;
+
     void OnEnable()
     {
         noteNum = 0;
@@ -61,6 +72,8 @@ public class NotesManager : MonoBehaviour
 
         // 読み込んだJSON文字列をC#のオブジェクトに変換
         JsonFormat inputJson = JsonUtility.FromJson<JsonFormat>(jsonText);
+
+        Invoke("PlayAudio", (inputJson.offset / 10000) - (NotesSpeed/16));
 
         noteNum = inputJson.notes.Length;
 
@@ -96,4 +109,8 @@ public class NotesManager : MonoBehaviour
         }
     }
 
+    private void PlayAudio()
+    {
+        audioSource.Play();
+    }
 }

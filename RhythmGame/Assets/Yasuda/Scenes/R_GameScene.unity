@@ -136,12 +136,12 @@ GameObject:
   - component: {fileID: 8242442}
   - component: {fileID: 8242441}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ComboText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8242440
 RectTransform:
   m_ObjectHideFlags: 0
@@ -197,10 +197,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 301
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -842,6 +842,7 @@ MonoBehaviour:
   NotesSpeed: 5
   noteObj: {fileID: 1162333179043108149, guid: 12a548cac4b3eb648859c761bcba029a, type: 3}
   longnoteObj: {fileID: 1162333179043108149, guid: 16e54d55ccf4c4e48840b903a7e2e13a, type: 3}
+  audioSource: {fileID: 2026100714}
 --- !u!4 &321380851
 Transform:
   m_ObjectHideFlags: 0
@@ -901,13 +902,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3249c9c1f68985749b52c14575bfcaf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.5
+  radius: 0.8
   keyCode: 107
   MessageObj:
   - {fileID: 1098939434986487982, guid: a36b76ec5acca03429f5dbc06ed22f31, type: 3}
   - {fileID: 1533536351956559252, guid: a4438d5e52025c7468fdcdc47c2bce87, type: 3}
   - {fileID: 3041263995317197863, guid: 831f43c680f974e458a9e91a2c8cbaab, type: 3}
-  notesManager: {fileID: 321380850}
+  LaneNum: 3
   TAMBOURINE_Prefab: {fileID: 3345048419562917965, guid: cfe2c1a1254845b41a29be27b815dd14, type: 3}
   KARAUTI_Prefab: {fileID: 6868155061367268369, guid: 75d3a84e3af41fd469097815146a5adc, type: 3}
   particle: {fileID: 198602994958770764, guid: ec1383a81f8b26e41bd5795fba065567, type: 3}
@@ -2255,13 +2256,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3249c9c1f68985749b52c14575bfcaf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.5
+  radius: 0.8
   keyCode: 106
   MessageObj:
   - {fileID: 1098939434986487982, guid: a36b76ec5acca03429f5dbc06ed22f31, type: 3}
   - {fileID: 1533536351956559252, guid: a4438d5e52025c7468fdcdc47c2bce87, type: 3}
   - {fileID: 3041263995317197863, guid: 831f43c680f974e458a9e91a2c8cbaab, type: 3}
-  notesManager: {fileID: 321380850}
+  LaneNum: 2
   TAMBOURINE_Prefab: {fileID: 3345048419562917965, guid: cfe2c1a1254845b41a29be27b815dd14, type: 3}
   KARAUTI_Prefab: {fileID: 6868155061367268369, guid: 75d3a84e3af41fd469097815146a5adc, type: 3}
   particle: {fileID: 198602994958770764, guid: ec1383a81f8b26e41bd5795fba065567, type: 3}
@@ -2312,13 +2313,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3249c9c1f68985749b52c14575bfcaf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.5
+  radius: 0.8
   keyCode: 102
   MessageObj:
   - {fileID: 1098939434986487982, guid: a36b76ec5acca03429f5dbc06ed22f31, type: 3}
   - {fileID: 1533536351956559252, guid: a4438d5e52025c7468fdcdc47c2bce87, type: 3}
   - {fileID: 3041263995317197863, guid: 831f43c680f974e458a9e91a2c8cbaab, type: 3}
-  notesManager: {fileID: 321380850}
+  LaneNum: 1
   TAMBOURINE_Prefab: {fileID: 3345048419562917965, guid: cfe2c1a1254845b41a29be27b815dd14, type: 3}
   KARAUTI_Prefab: {fileID: 6868155061367268369, guid: 75d3a84e3af41fd469097815146a5adc, type: 3}
   particle: {fileID: 198602994958770764, guid: ec1383a81f8b26e41bd5795fba065567, type: 3}
@@ -2599,13 +2600,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3249c9c1f68985749b52c14575bfcaf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.5
+  radius: 0.8
   keyCode: 100
   MessageObj:
   - {fileID: 1098939434986487982, guid: a36b76ec5acca03429f5dbc06ed22f31, type: 3}
   - {fileID: 1533536351956559252, guid: a4438d5e52025c7468fdcdc47c2bce87, type: 3}
   - {fileID: 3041263995317197863, guid: 831f43c680f974e458a9e91a2c8cbaab, type: 3}
-  notesManager: {fileID: 321380850}
+  LaneNum: 0
   TAMBOURINE_Prefab: {fileID: 3345048419562917965, guid: cfe2c1a1254845b41a29be27b815dd14, type: 3}
   KARAUTI_Prefab: {fileID: 6868155061367268369, guid: 75d3a84e3af41fd469097815146a5adc, type: 3}
   particle: {fileID: 198602994958770764, guid: ec1383a81f8b26e41bd5795fba065567, type: 3}
@@ -3465,8 +3466,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.17080283
-        value: 0.20393121
+        time: 0.2715902
+        value: 0.06634568
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3674,6 +3675,134 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018592530}
   m_CullTransparentMesh: 1
+--- !u!1 &2026100713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2026100715}
+  - component: {fileID: 2026100714}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &2026100714
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026100713}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1286dec769b9ca441b9ddcc9bf449f54, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.4
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &2026100715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026100713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.1143482, y: -13.340159, z: 9.636755}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2077886396
 GameObject:
   m_ObjectHideFlags: 0
@@ -3762,3 +3891,4 @@ SceneRoots:
   - {fileID: 1553256030}
   - {fileID: 869142197}
   - {fileID: 321380851}
+  - {fileID: 2026100715}

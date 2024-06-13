@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TextScaler textScaler = default;
 
-    [SerializeField] E_NotesManager e_NotesManager;
-
     [SerializeField] BeatRotation beatRotation;
 
     [SerializeField] Slider slider;
@@ -53,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        e_NotesManager.Load(songName);
+        //e_NotesManager.Load(songName);
 
         StartCoroutine(GameMain());
     }
@@ -69,7 +67,7 @@ public class GameManager : MonoBehaviour
         countDownText.text = "GO";
         yield return new WaitForSeconds(0.3f);
         countDownText.text = "";
-        e_NotesManager.GameStart();
+        //e_NotesManager.GameStart();
     }
 
     public void AddScore(float point)

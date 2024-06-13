@@ -8,8 +8,10 @@ public class R_JudgmentArea : MonoBehaviour
     [SerializeField] float radius;
     [SerializeField] KeyCode keyCode;
 
-    [SerializeField] private GameObject[] MessageObj;//プレイヤーに判定を伝えるゲームオブジェクト
-    [SerializeField] NotesManager notesManager;//スクリプト「notesManager」を入れる変数
+    [SerializeField] private GameObject[] MessageObj; // プレイヤーに判定を伝えるゲームオブジェクト
+
+
+    public int LaneNum;
 
     [SerializeField] GameObject TAMBOURINE_Prefab;
     [SerializeField] GameObject KARAUTI_Prefab;
@@ -48,11 +50,11 @@ public class R_JudgmentArea : MonoBehaviour
                 }
 
                 // 判定
-                float distance = Mathf.Abs(hit.point.z - transform.position.z);
+                float distance = Mathf.Abs(hit.transform.position.z - transform.position.z);
 
                 Debug.Log(distance);
 
-                if (distance < 0.3)
+                if (distance < 0.3f)
                 {
                     GameObject obj = Instantiate(TAMBOURINE_Prefab);
                     Destroy(obj, 0.5f);
@@ -60,7 +62,7 @@ public class R_JudgmentArea : MonoBehaviour
                     SpawnParticle();
                     message(0);
                 }
-                else if (distance < 0.4)
+                else if (distance < 0.5f)
                 {
                     GameObject obj = Instantiate(TAMBOURINE_Prefab);
                     Destroy(obj, 0.5f);
@@ -80,9 +82,10 @@ public class R_JudgmentArea : MonoBehaviour
         }
     }
 
-    void message(int judge)//判定を表示する
+    void message(int judge) // 判定を表示する
     {
-        GameObject mo = Instantiate(MessageObj[judge]);
+        GameObject mo = Instantiate(MessageObj[judge], new Vector3(LaneNum - 1.5f, 0.76f, 0.15f), Quaternion.Euler(45, 0, 0));
+        mo.gameObject.transform.localScale = Vector3.one;
         Destroy(mo, 1.0f);
     }
 
