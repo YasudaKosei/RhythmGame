@@ -73,7 +73,7 @@ public class NotesManager : MonoBehaviour
         // 読み込んだJSON文字列をC#のオブジェクトに変換
         JsonFormat inputJson = JsonUtility.FromJson<JsonFormat>(jsonText);
 
-        Invoke("PlayAudio", (inputJson.offset / 10000) - (NotesSpeed/16));
+        Invoke("PlayAudio", (inputJson.offset / 10000) - 0.3f);
 
         noteNum = inputJson.notes.Length;
 

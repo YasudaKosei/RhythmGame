@@ -10,21 +10,31 @@ public class R_JudgmentArea : MonoBehaviour
 
     [SerializeField] private GameObject[] MessageObj; // プレイヤーに判定を伝えるゲームオブジェクト
 
-
     public int LaneNum;
 
     [SerializeField] GameObject TAMBOURINE_Prefab;
     [SerializeField] GameObject KARAUTI_Prefab;
+    [SerializeField] GameObject RENDA_Prefab;
 
     [SerializeField]
     [Tooltip("パーティクル")]
     private ParticleSystem particle;
+
+    [SerializeField]
+    [Tooltip("連打パーティクル")]
+    private ParticleSystem rendaparticle;
 
     public bool DethArea;
 
     // Specify the tags you want to interact with
     [SerializeField]
     private string[] interactableTags;
+
+    private bool isRendaActive = false;
+
+    public GameObject rendaobj;
+
+    public ParticleSystem rendParticle;
 
     private void Update()
     {
@@ -78,6 +88,56 @@ public class R_JudgmentArea : MonoBehaviour
                 }
 
                 hit.collider.gameObject.SetActive(false);
+            }
+        }
+        else if (Input.GetKey(keyCode))
+        {
+            if (!isRendaActive)
+            {
+                RaycastHit[] hits = Physics.SphereCastAll(transform.position, radius, Vector3.forward, 0);
+
+                List<RaycastHit> raycastHits = hits.ToList();
+
+                if (raycastHits.Count == 0) return;
+
+                raycastHits.Sort((a, b) => (int)(a.transform.position.z - b.transform.position.z));
+
+                RaycastHit hit = raycastHits[0];
+
+                if (hit.transform.tag == "LongNots")
+                {
+                    if(rendaobj == null) rendaobj = Instantiate(RENDA_Prefab);
+                    rendParticle = Instantiate(rendaparticle);
+                    rendParticle.transform.position = this.transform.position;
+                    rendParticle.Play();
+                    isRendaActive = true;
+                    Debug.Log("連打開始");
+                }
+            }
+        }
+        else if (Input.GetKeyUp(keyCode) && isRendaActive)
+        {
+            isRendaActive = false;
+            Destroy(rendaobj);
+            rendaobj = null;
+            rendParticle.Stop();
+            Debug.Log("連打終了");
+        }
+
+        if (isRendaActive)
+        {
+            // Check if there are still LongNots objects in the area
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, radius, Vector3.forward, 0);
+
+            bool longNotsPresent = hits.Any(hit => hit.transform.tag == "LongNots");
+
+            if (!longNotsPresent)
+            {
+                isRendaActive = false;
+                Destroy(rendaobj);
+                rendaobj = null;
+                rendParticle.Stop();
+                Debug.Log("連打終了 (LongNots消失)");
             }
         }
     }
