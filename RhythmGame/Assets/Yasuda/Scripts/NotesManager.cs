@@ -58,24 +58,28 @@ public class NotesManager : MonoBehaviour
 
     public AudioSource audioSource;
 
-    void OnEnable()
+    public GameManager gameManager;
+
+    public void GameStart()
     {
-        noteNum = 0;
         Load(songName);
     }
 
     private void Load(string SongName)
     {
         // JSONファイルから文字列を読み込む
-        TextAsset textAsset = Resources.Load<TextAsset>(SongName);
-        string jsonText = textAsset.text;
+        var textAsset = Resources.Load<TextAsset>(SongName).ToString();
 
         // 読み込んだJSON文字列をC#のオブジェクトに変換
-        JsonFormat inputJson = JsonUtility.FromJson<JsonFormat>(jsonText);
+        JsonFormat inputJson = JsonUtility.FromJson<JsonFormat>(textAsset);
 
         Invoke("PlayAudio", (inputJson.offset / 10000) - 0.3f);
 
         noteNum = inputJson.notes.Length;
+
+        Debug.Log("ノーツの数は" + noteNum);
+
+        gameManager.maxScore = noteNum * 200;
 
         for (int i = 0; i < noteNum; i++)
         {

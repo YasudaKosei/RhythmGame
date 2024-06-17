@@ -1,5 +1,7 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using UnityEngine;
 
@@ -36,6 +38,8 @@ public class R_JudgmentArea : MonoBehaviour
 
     public ParticleSystem rendParticle;
 
+    public GameManager gameManager;
+
     private void Update()
     {
         if (Input.GetKeyDown(keyCode) || DethArea)
@@ -53,9 +57,11 @@ public class R_JudgmentArea : MonoBehaviour
 
             if (interactableTags.Contains(hit.collider.tag))
             {
-                if (DethArea)
+                if (DethArea && !(hit.transform.tag == "LongNots"))
                 {
-                    hit.collider.gameObject.SetActive(false);
+                    Destroy(hit.collider.gameObject);
+                    gameManager.AddScore(-50);
+                    gameManager.ResetCombo();
                     return;
                 }
 
@@ -64,19 +70,21 @@ public class R_JudgmentArea : MonoBehaviour
 
                 Debug.Log(distance);
 
-                if (distance < 0.3f)
+                if (distance < 0.25f)
                 {
                     GameObject obj = Instantiate(TAMBOURINE_Prefab);
                     Destroy(obj, 0.5f);
-
+                    gameManager.AddCombo();
+                    gameManager.AddScore(200);
                     SpawnParticle();
                     message(0);
                 }
-                else if (distance < 0.5f)
+                else if (distance < 0.3f)
                 {
                     GameObject obj = Instantiate(TAMBOURINE_Prefab);
                     Destroy(obj, 0.5f);
-
+                    gameManager.AddCombo();
+                    gameManager.AddScore(150);
                     SpawnParticle();
                     message(1);
                 }
@@ -84,6 +92,8 @@ public class R_JudgmentArea : MonoBehaviour
                 {
                     GameObject obj = Instantiate(KARAUTI_Prefab);
                     Destroy(obj, 0.5f);
+                    gameManager.ResetCombo();
+                    gameManager.AddScore(-50);
                     message(2);
                 }
 
@@ -106,18 +116,22 @@ public class R_JudgmentArea : MonoBehaviour
 
                 if (hit.transform.tag == "LongNots")
                 {
-                    if(rendaobj == null) rendaobj = Instantiate(RENDA_Prefab);
+                    hit.transform.tag = "OnLongNots";
+                    gameManager.AddScore(200);
+                    if (rendaobj == null) rendaobj = Instantiate(RENDA_Prefab);
+                    GameObject obj = Instantiate(TAMBOURINE_Prefab);
+                    isRendaActive = true;
+                    Debug.Log("連打開始");
                     rendParticle = Instantiate(rendaparticle);
                     rendParticle.transform.position = this.transform.position;
                     rendParticle.Play();
-                    isRendaActive = true;
-                    Debug.Log("連打開始");
                 }
             }
         }
         else if (Input.GetKeyUp(keyCode) && isRendaActive)
         {
             isRendaActive = false;
+            GameObject obj = Instantiate(TAMBOURINE_Prefab);
             Destroy(rendaobj);
             rendaobj = null;
             rendParticle.Stop();
@@ -129,7 +143,7 @@ public class R_JudgmentArea : MonoBehaviour
             // Check if there are still LongNots objects in the area
             RaycastHit[] hits = Physics.SphereCastAll(transform.position, radius, Vector3.forward, 0);
 
-            bool longNotsPresent = hits.Any(hit => hit.transform.tag == "LongNots");
+            bool longNotsPresent = hits.Any(hit => hit.transform.tag == "OnLongNots");
 
             if (!longNotsPresent)
             {
@@ -159,7 +173,7 @@ public class R_JudgmentArea : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = UnityEngine.Color.red;
         Gizmos.DrawSphere(transform.position, radius);
     }
 }

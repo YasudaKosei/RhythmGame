@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
 
     public string songName;
 
+    public NotesManager notesManager;
+
     private void Start()
     {
         //e_NotesManager.Load(songName);
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
         countDownText.text = "GO";
         yield return new WaitForSeconds(0.3f);
         countDownText.text = "";
-        //e_NotesManager.GameStart();
+        notesManager.GameStart();
     }
 
     public void AddScore(float point)
